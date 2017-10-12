@@ -1,5 +1,3 @@
 package opet.marketplace.vo;
 
-public class Replies {
-
-}
+public class Replies {}
