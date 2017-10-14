@@ -20,15 +20,15 @@ PRIMARY KEY (topic_id),
 FOREIGN KEY(topic_by) REFERENCES users(user_id)
 );
 
-CREATE TABLE posts (
-post_id         number(8) NOT NULL,
-post_content        CLOB NOT NULL,
-post_date       TIMESTAMP NOT NULL,
-post_topic      number(8) NOT NULL,
-post_by     NUMBER(8) NOT NULL,
-PRIMARY KEY (post_id),
-FOREIGN KEY(post_topic) REFERENCES topics(topic_id),
-FOREIGN KEY(post_by) REFERENCES users(user_id)
+CREATE TABLE REPLIES (
+reply_id         number(8) NOT NULL,
+reply_content        CLOB NOT NULL,
+reply_date       TIMESTAMP NOT NULL,
+reply_topic      number(8) NOT NULL,
+reply_by     NUMBER(8) NOT NULL,
+PRIMARY KEY (reply_id),
+FOREIGN KEY(reply_topic) REFERENCES topics(topic_id),
+FOREIGN KEY(reply_by) REFERENCES users(user_id)
 );
 
 DROP SEQUENCE USER_SEQ;
@@ -50,7 +50,7 @@ CREATE SEQUENCE TOPIC_SEQ
   NOCYCLE;
 
 DROP SEQUENCE POSTS_SEQ;
-CREATE SEQUENCE POSTS_SEQ
+CREATE SEQUENCE REPLIES_SEQ
   MINVALUE 1
   MAXVALUE 9999999999
   START WITH 1
