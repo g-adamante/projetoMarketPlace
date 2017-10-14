@@ -12,6 +12,7 @@ PRIMARY KEY (user_id)
 CREATE TABLE topics (
 topic_id        number(8) NOT NULL,
 topic_subject       VARCHAR(255) NOT NULL,
+topic_message       CLOB NOT NULL,
 topic_date      TIMESTAMP NOT NULL,
 topic_cat       number(8) NOT NULL,
 topic_by        number(8) NOT NULL,
