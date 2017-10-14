@@ -15,7 +15,7 @@ public abstract interface IUserDAO
   
   public abstract List<User> search();
   
-  public abstract List<User> searchByNome(String paramString);
+  public abstract List<User> searchByName(String paramString);
   
   public abstract List<User> searchByEmail(String paramString);
 }
