@@ -101,9 +101,9 @@ public class LoginView {
 			UserLaywerString = Leitor.readString();
 		}
 		
-		User pUser = new User(1, userName, userPass, );
+	//User pUser = new User(1, userName, userPass, );
 		
-		UserController.create(pUser);
+	//	UserController.create(pUser);
 		
 		
 		

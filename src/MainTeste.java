@@ -1,14 +1,14 @@
-import java.util.Date;
-import java.util.List;
-
-import opet.marketplace.vo.*;
-import opet.marketplace.dao.jdbc.*;
+import opet.marketplace.view.EntregaParcialCrudView;
 
 
 public class MainTeste {
 
 	public static void main(String[] args) {
 		
+		
+		EntregaParcialCrudView parcial = new EntregaParcialCrudView();
+		
+		parcial.menu();
 		
 				
 		// Testes de ReplyJdbcDAO
