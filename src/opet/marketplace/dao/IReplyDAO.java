@@ -2,7 +2,6 @@ package opet.marketplace.dao;
 
 import java.util.List;
 
-import opet.marketplace.vo.Categories;
 import opet.marketplace.vo.Reply;
 
 public abstract interface IReplyDAO {

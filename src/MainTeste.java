@@ -12,9 +12,7 @@ public class MainTeste {
 		
 				
 		// Testes de ReplyJdbcDAO
-		
-
-		
+	
 		//Teste de pesquisa por user
 		//ReplyJdbcDAO teste = new ReplyJdbcDAO();
 		//List<Reply> list = teste.searchByTopic(4);

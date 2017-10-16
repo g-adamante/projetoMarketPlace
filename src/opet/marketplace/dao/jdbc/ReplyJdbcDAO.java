@@ -11,9 +11,7 @@ import java.util.List;
 
 import opet.marketplace.dao.IReplyDAO;
 import opet.marketplace.jdbc.Connector;
-import opet.marketplace.vo.Categories;
 import opet.marketplace.vo.Reply;
-import opet.marketplace.vo.Topic;
 
 public class ReplyJdbcDAO implements IReplyDAO {
 	// instancia uma conexao com o banco de dados

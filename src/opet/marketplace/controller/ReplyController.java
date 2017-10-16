@@ -2,23 +2,23 @@ package opet.marketplace.controller;
 
 import java.util.List;
 
-import opet.markeplace.model.UserModel;
-import opet.marketplace.vo.User;
+import opet.markeplace.model.ReplyModel;
+import opet.marketplace.vo.Reply;
 
-public class UserController {
+public class ReplyController {
 
-	private UserModel UserModel = new UserModel();
+	private ReplyModel ReplyModel = new ReplyModel();
 
 	// Método para criar um usuário
-	public boolean create(User pUser) {
-		if (pUser == null) {
+	public boolean create(Reply pReply) {
+		if (pReply == null) {
 			System.out.println("Tentativa de inserir um usuário nulo");
 			return false;
 		}
 
 		// chama o model.
 
-		boolean SucessBoolean = UserModel.create(pUser);
+		boolean SucessBoolean = ReplyModel.create(pReply);
 
 		// se verdadeiro, sucesso, caso contrário, falha
 		if (SucessBoolean) {
@@ -32,7 +32,7 @@ public class UserController {
 
 	// Método para recuperar um usuário
 
-	public User recovery(int pInt) {
+	public Reply recovery(int pInt) {
 		if (pInt < 0) {
 			System.out.println("Id do usuário inválido.");
 			return null;
@@ -40,31 +40,31 @@ public class UserController {
 
 		// Chama o model.
 
-		User SucessUser = UserModel.recovery(pInt);
+		Reply SucessReply = ReplyModel.recovery(pInt);
 
 		// Se o usuário for nulo, falha. Caso contrário, sucesso.
 
-		if (SucessUser == null) {
+		if (SucessReply == null) {
 			System.out.println("Falha na recuperação do usuário.");
 			return null;
 		} else {
 
-			return SucessUser;
+			return SucessReply;
 
 		}
 
 	}
 
 	// Método para alterar um usuário
-	public boolean update(User pUser) {
-		if (pUser == null) {
+	public boolean update(Reply pReply) {
+		if (pReply == null) {
 			System.out.println("Tentativa de alterar usuário com dados nulos");
 			return false;
 		}
 
 		// chama o model.
 
-		boolean SucessBoolean = UserModel.update(pUser);
+		boolean SucessBoolean = ReplyModel.update(pReply);
 
 		// se verdadeiro, sucesso, caso contrário, falha
 		if (SucessBoolean) {
@@ -86,7 +86,7 @@ public class UserController {
 
 		// chama o model.
 
-		boolean SucessBoolean = UserModel.delete(pInt);
+		boolean SucessBoolean = ReplyModel.delete(pInt);
 
 		// se verdadeiro, sucesso, caso contrário, falha
 		if (SucessBoolean) {
@@ -99,11 +99,11 @@ public class UserController {
 	}
 
 	// Método para pesquisar todos os contatos
-	public List<User> search() {
+	public List<Reply> search() {
 
 		// Chama o model.
 
-		List<User> SucessList = UserModel.search();
+		List<Reply> SucessList = ReplyModel.search();
 
 		// Se a lista for nula, falha. Caso contrário, sucesso.
 
@@ -118,11 +118,11 @@ public class UserController {
 
 	}
 
-	public List<User> searchByName(String pString) {
+	public List<Reply> searchByTopic(int pInt) {
 
 		// Chama o model.
 
-		List<User> SucessList = UserModel.searchByName(pString);
+		List<Reply> SucessList = ReplyModel.searchByTopic(pInt);
 
 		// Se a lista for nula, falha. Caso contrário, sucesso.
 
@@ -137,11 +137,11 @@ public class UserController {
 
 	}
 
-	public List<User> searchByEmail(String pString) {
+	public List<Reply> searchByUser(int pInt) {
 
 		// Chama o model.
 
-		List<User> SucessList = UserModel.searchByEmail(pString);
+		List<Reply> SucessList = ReplyModel.searchByUser(pInt);
 
 		// Se a lista for nula, falha. Caso contrário, sucesso.
 
