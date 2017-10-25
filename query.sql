@@ -5,7 +5,7 @@ user_pass   VARCHAR(255) NOT NULL,
 user_email  VARCHAR(255) NOT NULL,
 user_creation_date   TIMESTAMP NOT NULL,
 user_type  number(8) NOT NULL,
-PRIMARY KEY (user_id)
+PRIMARY KEY (user_email)
 );
 
 
@@ -16,6 +16,7 @@ topic_message       CLOB NOT NULL,
 topic_date      TIMESTAMP NOT NULL,
 topic_cat       number(8) NOT NULL,
 topic_by        number(8) NOT NULL,
+topic_lawyer    number(8),
 PRIMARY KEY (topic_id),
 FOREIGN KEY(topic_by) REFERENCES users(user_id)
 );
