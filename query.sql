@@ -1,3 +1,7 @@
+DROP TABLE users;
+DROP TABLE topics;
+DROP TABLE REPLIES;
+
 CREATE TABLE users (
 user_id     number(8) NOT NULL,
 user_name   VARCHAR(30) NOT NULL,
@@ -5,7 +9,8 @@ user_pass   VARCHAR(255) NOT NULL,
 user_email  VARCHAR(255) NOT NULL,
 user_creation_date   TIMESTAMP NOT NULL,
 user_type  number(8) NOT NULL,
-PRIMARY KEY (user_email)
+CONSTRAINT user_id_pk PRIMARY KEY (user_id),
+CONSTRAINT user_email_unique UNIQUE (user_email)
 );
 
 
@@ -50,7 +55,7 @@ CREATE SEQUENCE TOPIC_SEQ
   NOCACHE
   NOCYCLE;
 
-DROP SEQUENCE POSTS_SEQ;
+DROP SEQUENCE  REPLIES_SEQ;
 CREATE SEQUENCE REPLIES_SEQ
   MINVALUE 1
   MAXVALUE 9999999999
