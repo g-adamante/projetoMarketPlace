@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Menu Principal</title>
+</h:head>
+<h:body>
+<h:form>
+
+<div id="header">
+    
+    <h1>I'm the Law</h1>
+    <hr/>
+    </div> 
+    
+<div id="userData">
+    <ul>
+    <li>Nome: <b>#{loginBean.getActiveUser().getUserName()}</b></li>
+    <li>Email: <b>#{loginBean.getActiveUser().getUserEmail()}</b></li>
+    <li>Tipo: <b>#{mainMenuBean.getUserType()}</b></li>        
+    </ul>
+<hr/>
+    <p><a href="/projectMarketPlaceWeb/marketplace/alterUser.xhtml">Alterar dados</a> | <a href="#{loginBean.logOut()}">Logout</a> </p>
+    
+</div>
+
+<div id="menu">
+<hr/>
+<p>Login com sucesso</p>
+    
+    <h2>Menu</h2>
+    
+    <ul>
+       <li><a href="">Responder Tópico</a></li>
+       <li><a href="/projectMarketPlaceWeb/marketplace/createTopic.xhtml">Criar novo Tópico</a></li>
+       <li><a href="">Lista de Tópicos</a></li>      
+        
+    </ul>
+    
+    
+</div>
+    
+</h:form>
+</h:body>
+</html>

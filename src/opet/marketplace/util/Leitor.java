@@ -3,16 +3,16 @@ package opet.marketplace.util;
 /*
  * Leitor.java
  *
- * Classe utilit·ria para realizar leitura de diversos tipos de dados da console.
+ * Classe utilit√°ria para realizar leitura de diversos tipos de dados da console.
  *
- * © 1997 - Cay Horstmann - Todos os direitos reservados.
+ * ¬© 1997 - Cay Horstmann - Todos os direitos reservados.
  *
- * HistÛrico
- * 11/03/1997 ñ Vers„o 1.0 - Cay Hostaman ñ CriaÁ„o do arquivo
- * 10/02/2005 - Vers„o 2.0 - JosÈ Augusto - AdaptaÁ„o e ciaÁ„o de mÈtodos novos
- * 09/01/2013 - Vers„o 3.0 - JosÈ Augusto - CriaÁ„o de leitura de enumerados
- * 28/02/2016 - Versao 3.1 - JosÈ Augusto - OrganizaÁ„o do cÛdigo devido a indicativos do Sonar
- * 13/05/2016 - Versao 3.2 - JosÈ Augusto - CriaÁ„o de leitura para LocalDate
+ * Hist√≥rico
+ * 11/03/1997 ‚Äì Vers√£o 1.0 - Cay Hostaman ‚Äì Cria√ß√£o do arquivo
+ * 10/02/2005 - Vers√£o 2.0 - Jos√© Augusto - Adapta√ß√£o e cia√ß√£o de m√©todos novos
+ * 09/01/2013 - Vers√£o 3.0 - Jos√© Augusto - Cria√ß√£o de leitura de enumerados
+ * 28/02/2016 - Versao 3.1 - Jos√© Augusto - Organiza√ß√£o do c√≥digo devido a indicativos do Sonar
+ * 13/05/2016 - Versao 3.2 - Jos√© Augusto - Cria√ß√£o de leitura para LocalDate
  *
  */
 import java.io.IOException;
@@ -33,14 +33,14 @@ import java.util.logging.Logger;
  * @version 1.10 10 Mar 1997
  * @author Cay Horstmann
  *
- *         Alterado e complementado por JosÈ Augusto Martins Nieviadonski.
+ *         Alterado e complementado por Jos√© Augusto Martins Nieviadonski.
  *
- *         Permitido a cÛpia e uso dessa classe desde que mantido essa mensagem de copyrigth.
+ *         Permitido a c√≥pia e uso dessa classe desde que mantido essa mensagem de copyrigth.
  */
 
 public class Leitor
 {
-    /* Atributos est·ticos */
+    /* Atributos est√°ticos */
     private static final Logger LOGGER                    = Logger.getLogger(Leitor.class.getName());
     private static final String TIPO_BYTE                 = "'byte'";
     private static final String TIPO_SHORT                = "'short'";
@@ -58,9 +58,9 @@ public class Leitor
     private static final String STRING_DEFAULT            = " (\"\" default) : ";
     private static final String ZERO_DEFAULT              = " (0 default) : ";
     private static final String DEFAULT                   = " default) : ";
-    private static final String VALOR_NAO_PERTENCE        = "O valor n„o pertence a um dos valores aceitos";
+    private static final String VALOR_NAO_PERTENCE        = "O valor n√£o pertence a um dos valores aceitos";
     private static final String DIGITE_NOVAMENTE          = "Digite novamente...";
-    private static final String VALOR_INVALIDO            = "Valor inv·lido para o tipo ";
+    private static final String VALOR_INVALIDO            = "Valor inv√°lido para o tipo ";
     private static final String ENTRE_VALOR               = "Entre com um valor do tipo ";
     private static final String MASCARA_PADRAO_DATA       = "dd'/'MM'/'yyyy";
     private static final String MASCARA_PADRAO_DATA_LOCAL = "dd/MM/uuuu";
@@ -68,10 +68,10 @@ public class Leitor
     /* Construtores da classe */
     private Leitor()
     {
-        // Construtor privado para evitar instanciaÁ„o
+        // Construtor privado para evitar instancia√ß√£o
     }
 
-    /* MÈtodos de classe */
+    /* M√©todos de classe */
     private static void printPrompt(String pPrompt)
     {
         System.out.print(pPrompt);

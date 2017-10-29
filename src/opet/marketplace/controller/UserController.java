@@ -1,160 +1,141 @@
 package opet.marketplace.controller;
 
-import java.util.List;
-
-import opet.markeplace.model.UserModel;
+import opet.marketplace.model.UserModel;
 import opet.marketplace.vo.User;
 
-public class UserController {
+public class UserController
+{
+    private UserModel userModel;
 
-	private UserModel UserModel = new UserModel();
+    public UserController()
+    {
+        this.userModel = new UserModel();
+    }
 
-	// Método para criar um usuário
-	public boolean create(User pUser) {
-		if (pUser == null) {
-			System.out.println("Tentativa de inserir um usuário nulo");
-			return false;
-		}
+    public boolean create(User pUser)
+    {
+        if (pUser == null)
+        {
+            System.out.println("Tentativa de inserir um usuario nulo");
+            return false;
+        }
 
-		// chama o model.
+        boolean sucessBoolean = this.userModel.create(pUser);
 
-		boolean SucessBoolean = UserModel.create(pUser);
+        if (sucessBoolean)
+        {
+            System.out.println("Usuï¿½rio Inserido com sucesso.");
+            return true;
+        }
+        System.out.println("Falha na inserï¿½ï¿½o de usuï¿½rio.");
+        return false;
+    }
 
-		// se verdadeiro, sucesso, caso contrário, falha
-		if (SucessBoolean) {
-			System.out.println("Usuário Inserido com sucesso.");
-			return true;
-		} else {
-			System.out.println("Falha na inserção de usuário.");
-			return false;
-		}
-	}
+    public User recovery(int pInt)
+    {
+        if (pInt < 0)
+        {
+            System.out.println("Id do usuï¿½rio invï¿½lido.");
+            return null;
+        }
 
-	// Método para recuperar um usuário
+        User sucessUser = this.userModel.recovery(pInt);
 
-	public User recovery(int pInt) {
-		if (pInt < 0) {
-			System.out.println("Id do usuário inválido.");
-			return null;
-		}
+        if (sucessUser == null)
+        {
+            System.out.println("Falha na recuperaï¿½ï¿½o do usuï¿½rio.");
+            return null;
+        }
 
-		// Chama o model.
+        return sucessUser;
+    }
 
-		User SucessUser = UserModel.recovery(pInt);
+    public boolean update(User pUser)
+    {
+        if (pUser == null)
+        {
+            System.out.println("Tentativa de alterar usuï¿½rio com dados nulos");
+            return false;
+        }
 
-		// Se o usuário for nulo, falha. Caso contrário, sucesso.
+        boolean sucessBoolean = this.userModel.update(pUser);
 
-		if (SucessUser == null) {
-			System.out.println("Falha na recuperação do usuário.");
-			return null;
-		} else {
+        if (sucessBoolean)
+        {
+            System.out.println("Usuï¿½rio alterado com sucesso.");
+            return true;
+        }
+        System.out.println("Falha na alteraï¿½ï¿½o de usuï¿½rio.");
+        return false;
+    }
 
-			return SucessUser;
+    public boolean delete(int pInt)
+    {
+        if (pInt < 0)
+        {
+            System.out.println("Id do usuï¿½rio invï¿½lido.");
+            return false;
+        }
 
-		}
+        boolean sucessBoolean = this.userModel.delete(pInt);
 
-	}
+        if (sucessBoolean)
+        {
+            System.out.println("Usuï¿½rio deletado com sucesso.");
+            return true;
+        }
+        System.out.println("Falha na deleï¿½ï¿½o de usuï¿½rio.");
+        return false;
+    }
 
-	// Método para alterar um usuário
-	public boolean update(User pUser) {
-		if (pUser == null) {
-			System.out.println("Tentativa de alterar usuário com dados nulos");
-			return false;
-		}
+    public java.util.List<User> search()
+    {
+        java.util.List<User> sucessList = this.userModel.search();
+        if (sucessList == null)
+        {
+            System.out.println("Falha na pesquisa de usuï¿½rios.");
+            return null;
+        }
+        return sucessList;
+    }
 
-		// chama o model.
+    public java.util.List<User> searchByName(String pString)
+    {
+        java.util.List<User> sucessList = this.userModel.searchByName(pString);
 
-		boolean SucessBoolean = UserModel.update(pUser);
+        if (sucessList == null)
+        {
+            System.out.println("Falha na pesquisa por nome de usuï¿½rios.");
+            return null;
+        }
 
-		// se verdadeiro, sucesso, caso contrário, falha
-		if (SucessBoolean) {
-			System.out.println("Usuário alterado com sucesso.");
-			return true;
-		} else {
-			System.out.println("Falha na alteração de usuário.");
-			return false;
-		}
-	}
+        return sucessList;
+    }
 
-	// Método para deletar um usuário
-	public boolean delete(int pInt) {
+    public User searchByEmail(String pString)
+    {
 
-		if (pInt < 0) {
-			System.out.println("Id do usuário inválido.");
-			return false;
-		}
+        User sucessUser = this.userModel.searchByEmail(pString);
 
-		// chama o model.
+        if (sucessUser == null)
+        {
+            System.out.println("Falha na pesquisa por email de usuï¿½rios.");
+            return null;
+        }
 
-		boolean SucessBoolean = UserModel.delete(pInt);
+        return sucessUser;
+    }
 
-		// se verdadeiro, sucesso, caso contrário, falha
-		if (SucessBoolean) {
-			System.out.println("Usuário deletado com sucesso.");
-			return true;
-		} else {
-			System.out.println("Falha na deleção de usuário.");
-			return false;
-		}
-	}
+    public boolean validateLogin(String pUserEmail, String pUserPass)
+    {
+        boolean sucessBoolean = this.userModel.validateLogin(pUserEmail, pUserPass);
 
-	// Método para pesquisar todos os contatos
-	public List<User> search() {
-
-		// Chama o model.
-
-		List<User> SucessList = UserModel.search();
-
-		// Se a lista for nula, falha. Caso contrário, sucesso.
-
-		if (SucessList == null) {
-			System.out.println("Falha na pesquisa de usuários.");
-			return null;
-		} else {
-
-			return SucessList;
-
-		}
-
-	}
-
-	public List<User> searchByName(String pString) {
-
-		// Chama o model.
-
-		List<User> SucessList = UserModel.searchByName(pString);
-
-		// Se a lista for nula, falha. Caso contrário, sucesso.
-
-		if (SucessList == null) {
-			System.out.println("Falha na pesquisa por nome de usuários.");
-			return null;
-		} else {
-
-			return SucessList;
-
-		}
-
-	}
-
-	public List<User> searchByEmail(String pString) {
-
-		// Chama o model.
-
-		List<User> SucessList = UserModel.searchByEmail(pString);
-
-		// Se a lista for nula, falha. Caso contrário, sucesso.
-
-		if (SucessList == null) {
-			System.out.println("Falha na pesquisa por email de usuários.");
-			return null;
-		} else {
-
-			return SucessList;
-
-		}
-
-	}
-
-	
+        if (sucessBoolean)
+        {
+            System.out.println("Login Feito com Sucesso");
+            return true;
+        }
+        System.out.println("Erro de Login");
+        return false;
+    }
 }

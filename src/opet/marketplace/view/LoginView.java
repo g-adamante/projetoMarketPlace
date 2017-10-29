@@ -1,112 +1,104 @@
-package opet.marketplace.view;
+ package opet.marketplace.view;
 
-import java.util.Date;
+ import java.util.Date;
 
 import opet.marketplace.controller.UserController;
 import opet.marketplace.util.Leitor;
 import opet.marketplace.util.Validador;
-import opet.marketplace.vo.User;
 
-public class LoginView {
 
-	public LoginView() {
-		
-		System.out.println("##I AM THE LAW - LOGIN ##");
-		System.out.println("# 1 - Já sou cadastrado");
-		System.out.println("# 2 - Fazer cadastro");
-		System.out.println("# 9 - Sair");
-		System.out.println("#########################");
-		System.out.println("Digite a opção desejada(1 ou 2):");
+ public class LoginView
+ {
+   public LoginView()
+   {
+/*  14 */     System.out.println("##I AM THE LAW - LOGIN ##");
+/*  15 */     System.out.println("# 1 - Jï¿½ sou cadastrado");
+/*  16 */     System.out.println("# 2 - Fazer cadastro");
+/*  17 */     System.out.println("# 9 - Sair");
+/*  18 */     System.out.println("#########################");
+/*  19 */     System.out.println("Digite a opï¿½ï¿½o desejada(1 ou 2):");
 
-		int optionInt = Leitor.readInt();
+/*  21 */     int optionInt = Leitor.readInt();
 
-		switch (optionInt) {
-		case 1:
+/*  23 */     switch (optionInt)
+     {
+     case 1:
+       break;
+     case 2:
+       break;
 
-			break;
-		case 2:
+     case 9:
+       break;
 
-			break;
-		case 9:
-			break;
+     default:
+/*  34 */       System.out.println("Opï¿½ï¿½o Invï¿½lida.");
+/*  35 */       System.out.println("Digite a opï¿½ï¿½o desejada(1 ou 2):");
+/*  36 */       optionInt = Leitor.readInt();
+     }
 
-		default:
-			System.out.println("Opção Inválida.");
-			System.out.println("Digite a opção desejada(1 ou 2):");
-			optionInt = Leitor.readInt();
-		}
-		
+   }
 
-	}
-	
-	public void CreateNewUser(){
-		UserController UserController = new UserController();
-		String UserName;
-		String UserPass;
-		String UserEmail;
-		Date Date = new Date();
-		int UserLawyer = 0;
-		
-		System.out.flush();
-		System.out.println("##I AM THE LAW - Criação de Usuário ##");
-		System.out.println("# 1 - Qual seu nome?");
-		
-		//Se não for alfabetico, faça de novo. Se for, break the loop 
-		do{
-			UserName = Leitor.readString();
-			if(Validador.alfabetico(UserName)){
-				break;
-			}
-			else{
-				System.out.println("Digitar apenas caracteres alfabeticos.");
-				System.out.println("Digite seu nome novamente.");
-			}
-		}
-		while(Validador.alfabetico(UserName) == false);
-		
-		System.out.println("# 2 - Escolha uma senha.");
-		
-		UserPass = Leitor.readString();
-		
-				
-		System.out.println("# 2 - Qual seu e-mail?");
-		
-		//Se não for email, faça de novo. Se for, break the loop 
-		do{
-			UserEmail = Leitor.readString();
-			if(Validador.validarEmail(UserEmail)){
-				break;
-			}
-			else{
-				System.out.println("Email inválido.");
-				System.out.println("Digite seu email novamente.");
-			}
-		}	
-		while(Validador.validarEmail(UserEmail) == false);
-	
-		//Valida se é advogado ou não 
-		
-		System.out.println("# 3 - Você é Advogado? (S/N)");
-		
-		String UserLaywerString = Leitor.readString();
+   public void CreateNewUser()
+   {
+/*  43 */     UserController UserController = new UserController();
 
-		switch (UserLawyer) {
-		case 1: UserLaywerString = "S";
-			break;
-		case 2: UserLaywerString = "N";
-			break;
-		default:
-			System.out.println("Opção Inválida.");
-			System.out.println("Digite a opção desejada(S ou N):");
-			UserLaywerString = Leitor.readString();
-		}
-		
-	//User pUser = new User(1, userName, userPass, );
-		
-	//	UserController.create(pUser);
-		
-		
-		
-	}
 
-}
+
+/*  47 */     Date Date = new Date();
+/*  48 */     int UserLawyer = 0;
+
+/*  50 */     System.out.flush();
+/*  51 */     System.out.println("##I AM THE LAW - Criaï¿½ï¿½o de Usuï¿½rio ##");
+/*  52 */     System.out.println("# 1 - Qual seu nome?");
+     String UserName;
+     do
+     {
+/*  56 */       UserName = Leitor.readString();
+/*  57 */       if (Validador.alfabetico(UserName)) {
+         break;
+       }
+
+/*  61 */       System.out.println("Digitar apenas caracteres alfabeticos.");
+/*  62 */       System.out.println("Digite seu nome novamente.");
+
+     }
+/*  65 */     while (!Validador.alfabetico(UserName));
+
+/*  67 */     System.out.println("# 2 - Escolha uma senha.");
+
+/*  69 */     String UserPass = Leitor.readString();
+
+
+/*  72 */     System.out.println("# 2 - Qual seu e-mail?");
+     String UserEmail;
+     do
+     {
+/*  76 */       UserEmail = Leitor.readString();
+/*  77 */       if (Validador.validarEmail(UserEmail)) {
+         break;
+       }
+
+/*  81 */       System.out.println("Email invï¿½lido.");
+/*  82 */       System.out.println("Digite seu email novamente.");
+
+     }
+/*  85 */     while (!Validador.validarEmail(UserEmail));
+
+
+
+/*  89 */     System.out.println("# 3 - Vocï¿½ ï¿½ Advogado? (S/N)");
+
+/*  91 */     String UserLaywerString = Leitor.readString();
+
+/*  93 */     switch (UserLawyer) {
+/*  94 */     case 1:  UserLaywerString = "S";
+/*  95 */       break;
+/*  96 */     case 2:  UserLaywerString = "N";
+/*  97 */       break;
+     default:
+/*  99 */       System.out.println("Opï¿½ï¿½o Invï¿½lida.");
+/* 100 */       System.out.println("Digite a opï¿½ï¿½o desejada(S ou N):");
+/* 101 */       UserLaywerString = Leitor.readString();
+     }
+   }
+ }

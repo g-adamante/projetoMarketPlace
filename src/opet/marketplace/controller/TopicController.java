@@ -1,160 +1,129 @@
 package opet.marketplace.controller;
 
-import java.util.List;
-
-import opet.markeplace.model.TopicModel;
+import opet.marketplace.model.TopicModel;
 import opet.marketplace.vo.Topic;
 
-public class TopicController {
+public class TopicController
+{
+    private TopicModel topicModel;
 
-	private TopicModel TopicModel = new TopicModel();
+    public TopicController()
+    {
+        this.topicModel = new TopicModel();
+    }
 
-	// Método para criar um usuário
-	public boolean create(Topic pTopic) {
-		if (pTopic == null) {
-			System.out.println("Tentativa de inserir um usuário nulo");
-			return false;
-		}
+    public boolean create(Topic pTopic)
+    {
+        if (pTopic == null)
+        {
+            System.out.println("Tentativa de inserir um usuï¿½rio nulo");
+            return false;
+        }
 
-		// chama o model.
+        boolean sucessBoolean = this.topicModel.create(pTopic);
 
-		boolean SucessBoolean = TopicModel.create(pTopic);
+        if (sucessBoolean)
+        {
+            System.out.println("Usuï¿½rio Inserido com sucesso.");
+            return true;
+        }
+        System.out.println("Falha na inserï¿½ï¿½o de usuï¿½rio.");
+        return false;
+    }
 
-		// se verdadeiro, sucesso, caso contrário, falha
-		if (SucessBoolean) {
-			System.out.println("Usuário Inserido com sucesso.");
-			return true;
-		} else {
-			System.out.println("Falha na inserção de usuário.");
-			return false;
-		}
-	}
+    public Topic recovery(int pInt)
+    {
+        if (pInt < 0)
+        {
+            System.out.println("Id do usuï¿½rio invï¿½lido.");
+            return null;
+        }
 
-	// Método para recuperar um usuário
+        Topic sucessTopic = this.topicModel.recovery(pInt);
 
-	public Topic recovery(int pInt) {
-		if (pInt < 0) {
-			System.out.println("Id do usuário inválido.");
-			return null;
-		}
+        if (sucessTopic == null)
+        {
+            System.out.println("Falha na recuperaï¿½ï¿½o do usuï¿½rio.");
+            return null;
+        }
 
-		// Chama o model.
+        return sucessTopic;
+    }
 
-		Topic SucessTopic = TopicModel.recovery(pInt);
+    public boolean update(Topic pTopic)
+    {
+        if (pTopic == null)
+        {
+            System.out.println("Tentativa de alterar usuï¿½rio com dados nulos");
+            return false;
+        }
 
-		// Se o usuário for nulo, falha. Caso contrário, sucesso.
+        boolean sucessBoolean = this.topicModel.update(pTopic);
 
-		if (SucessTopic == null) {
-			System.out.println("Falha na recuperação do usuário.");
-			return null;
-		} else {
+        if (sucessBoolean)
+        {
+            System.out.println("Usuï¿½rio alterado com sucesso.");
+            return true;
+        }
+        System.out.println("Falha na alteraï¿½ï¿½o de usuï¿½rio.");
+        return false;
+    }
 
-			return SucessTopic;
+    public boolean delete(int pInt)
+    {
+        if (pInt < 0)
+        {
+            System.out.println("Id do usuï¿½rio invï¿½lido.");
+            return false;
+        }
 
-		}
+        boolean sucessBoolean = this.topicModel.delete(pInt);
 
-	}
+        if (sucessBoolean)
+        {
+            System.out.println("Usuï¿½rio deletado com sucesso.");
+            return true;
+        }
+        System.out.println("Falha na deleï¿½ï¿½o de usuï¿½rio.");
+        return false;
+    }
 
-	// Método para alterar um usuário
-	public boolean update(Topic pTopic) {
-		if (pTopic == null) {
-			System.out.println("Tentativa de alterar usuário com dados nulos");
-			return false;
-		}
+    public java.util.List<Topic> search()
+    {
+        java.util.List<Topic> sucessList = this.topicModel.search();
 
-		// chama o model.
+        if (sucessList == null)
+        {
+            System.out.println("Falha na pesquisa de usuï¿½rios.");
+            return null;
+        }
 
-		boolean SucessBoolean = TopicModel.update(pTopic);
+        return sucessList;
+    }
 
-		// se verdadeiro, sucesso, caso contrário, falha
-		if (SucessBoolean) {
-			System.out.println("Usuário alterado com sucesso.");
-			return true;
-		} else {
-			System.out.println("Falha na alteração de usuário.");
-			return false;
-		}
-	}
+    public java.util.List<Topic> searchBySubject(String pString)
+    {
+        java.util.List<Topic> sucessList = this.topicModel.searchBySubject(pString);
 
-	// Método para deletar um usuário
-	public boolean delete(int pInt) {
+        if (sucessList == null)
+        {
+            System.out.println("Falha na pesquisa por nome de usuï¿½rios.");
+            return null;
+        }
 
-		if (pInt < 0) {
-			System.out.println("Id do usuário inválido.");
-			return false;
-		}
+        return sucessList;
+    }
 
-		// chama o model.
+    public java.util.List<Topic> searchByUser(int pInt)
+    {
+        java.util.List<Topic> sucessList = this.topicModel.searchByUser(pInt);
 
-		boolean SucessBoolean = TopicModel.delete(pInt);
+        if (sucessList == null)
+        {
+            System.out.println("Falha na pesquisa por email de usuï¿½rios.");
+            return null;
+        }
 
-		// se verdadeiro, sucesso, caso contrário, falha
-		if (SucessBoolean) {
-			System.out.println("Usuário deletado com sucesso.");
-			return true;
-		} else {
-			System.out.println("Falha na deleção de usuário.");
-			return false;
-		}
-	}
-
-	// Método para pesquisar todos os contatos
-	public List<Topic> search() {
-
-		// Chama o model.
-
-		List<Topic> SucessList = TopicModel.search();
-
-		// Se a lista for nula, falha. Caso contrário, sucesso.
-
-		if (SucessList == null) {
-			System.out.println("Falha na pesquisa de usuários.");
-			return null;
-		} else {
-
-			return SucessList;
-
-		}
-
-	}
-
-	public List<Topic> searchBySubject(String pString) {
-
-		// Chama o model.
-
-		List<Topic> SucessList = TopicModel.searchBySubject(pString);
-
-		// Se a lista for nula, falha. Caso contrário, sucesso.
-
-		if (SucessList == null) {
-			System.out.println("Falha na pesquisa por nome de usuários.");
-			return null;
-		} else {
-
-			return SucessList;
-
-		}
-
-	}
-
-	public List<Topic> searchByUser(int pInt) {
-
-		// Chama o model.
-
-		List<Topic> SucessList = TopicModel.searchByUser(pInt);
-
-		// Se a lista for nula, falha. Caso contrário, sucesso.
-
-		if (SucessList == null) {
-			System.out.println("Falha na pesquisa por email de usuários.");
-			return null;
-		} else {
-
-			return SucessList;
-
-		}
-
-	}
-
-	
+        return sucessList;
+    }
 }

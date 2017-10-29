@@ -1,53 +1,38 @@
-/*
- * ExceptionUtil.java
- *
- * Classe utilitária para mostrar a lista de métodos de uma exceção (StrackStrace)
- * na console, dando tratamento especial caso a exceção seja do tipo SQLException.
- *
- * © 2016 - Faculdades Opet - Todos os direitos reservados.
- *
- * Histórico
- * 14/07/2016 – Versão 1.0 - José Augusto – Criação do arquivo
- *
- */
-package opet.marketplace.util;
-
-import java.sql.DriverManager;
+ package opet.marketplace.util;
+ import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ExceptionUtil
-{
 
-    // Método utilitário que recebe qualquer exceção e mostra o dados da
-    // mesma de forma formatada.
-    public static void mostrarErro(Exception pExcept, String pMsg)
-    {
-        // Mostrar os dados básicos como nome da exceção e mensagem
-        System.out.println();
-        System.out.println(pMsg);
-        System.out.println("Exceção....: " + pExcept.getClass().getName());
-        System.out.println("Mensagem...: " + pExcept.getMessage());
+ public class ExceptionUtil
+ {
+   public static void mostrarErro(Exception pExcept, String pMsg)
+   {
+/* 26 */     System.out.println();
+/* 27 */     System.out.println(pMsg);
+/* 28 */     System.out.println("Exceï¿½ï¿½o....: " + pExcept.getClass().getName());
+/* 29 */     System.out.println("Mensagem...: " + pExcept.getMessage());
 
-        // Caso seja uma exceção SQLException, mosra os dados da exceção do banco de dados
-        if (pExcept instanceof SQLException)
-        {
-            SQLException tExcept = (SQLException) pExcept;
-            System.out.println("SQLState...:" + tExcept.getSQLState());
-            System.out.println("Error Code.:" + tExcept.getErrorCode());
-            DriverManager.println("SQLState...:" + tExcept.getSQLState());
-            DriverManager.println("Error Code.:" + tExcept.getErrorCode());
-        }
 
-        // Processa a lista de exceções ligadas, se houver, mostrando a lista
-        Throwable tCausa = pExcept.getCause();
-        while (tCausa != null)
-        {
-            System.out.println("Causa.....: " + tCausa.getMessage());
-            tCausa = tCausa.getCause();
-        }
+/* 32 */     if ((pExcept instanceof SQLException))
+     {
+/* 34 */       SQLException tExcept = (SQLException)pExcept;
+/* 35 */       System.out.println("SQLState...:" + tExcept.getSQLState());
+/* 36 */       System.out.println("Error Code.:" + tExcept.getErrorCode());
+/* 37 */       DriverManager.println("SQLState...:" + tExcept.getSQLState());
+/* 38 */       DriverManager.println("Error Code.:" + tExcept.getErrorCode());
+     }
 
-        // Mostra na console o StackTrace da exceção
-        System.out.println("Pilha de execução");
-        pExcept.printStackTrace(System.out);
-    }
-}
+
+/* 42 */     Throwable tCausa = pExcept.getCause();
+/* 43 */     while (tCausa != null)
+     {
+/* 45 */       System.out.println("Causa.....: " + tCausa.getMessage());
+/* 46 */       tCausa = tCausa.getCause();
+     }
+
+
+/* 50 */     System.out.println("Pilha de execuï¿½ï¿½o");
+/* 51 */     pExcept.printStackTrace(System.out);
+   }
+ }
+

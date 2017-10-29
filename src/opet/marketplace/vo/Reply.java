@@ -1,65 +1,61 @@
-package opet.marketplace.vo;
+ package opet.marketplace.vo;
 
-import java.util.Date;
+ import java.util.Date;
 
-public class Reply {
-	
-	private int replyId;
-	private String replyContent;
-	private Date replyDate;
-	private int replyTopic;
-	private int replyBy;
-	
-	public Reply(int replyId, String replyContent, Date replyDate, int replyTopic, int replyBy) {
-		super();
-		this.replyId = replyId;
-		this.replyContent = replyContent;
-		this.replyDate = replyDate;
-		this.replyTopic = replyTopic;
-		this.replyBy = replyBy;
-	}
+ public class Reply
+ {
+   private int replyId;
+   private String replyContent;
+   private Date replyDate;
+   private int replyTopic;
+   private int replyBy;
 
-	public int getReplyId() {
-		return replyId;
-	}
+   public Reply(int replyId, String replyContent, Date replyDate, int replyTopic, int replyBy)
+   {
+/* 15 */     this.replyId = replyId;
+/* 16 */     this.replyContent = replyContent;
+/* 17 */     this.replyDate = replyDate;
+/* 18 */     this.replyTopic = replyTopic;
+/* 19 */     this.replyBy = replyBy;
+   }
 
-	public void setReplyId(int replyId) {
-		this.replyId = replyId;
-	}
+   public int getReplyId() {
+/* 23 */     return this.replyId;
+   }
 
-	public String getReplyContent() {
-		return replyContent;
-	}
+   public void setReplyId(int replyId) {
+/* 27 */     this.replyId = replyId;
+   }
 
-	public void setReplyContent(String replyContent) {
-		this.replyContent = replyContent;
-	}
+   public String getReplyContent() {
+/* 31 */     return this.replyContent;
+   }
 
-	public Date getReplyDate() {
-		return replyDate;
-	}
+   public void setReplyContent(String replyContent) {
+/* 35 */     this.replyContent = replyContent;
+   }
 
-	public void setReplyDate(Date replyDate) {
-		this.replyDate = replyDate;
-	}
+   public Date getReplyDate() {
+/* 39 */     return this.replyDate;
+   }
 
-	public int getReplyTopic() {
-		return replyTopic;
-	}
+   public void setReplyDate(Date replyDate) {
+/* 43 */     this.replyDate = replyDate;
+   }
 
-	public void setReplyTopic(int replyTopic) {
-		this.replyTopic = replyTopic;
-	}
+   public int getReplyTopic() {
+/* 47 */     return this.replyTopic;
+   }
 
-	public int getReplyBy() {
-		return replyBy;
-	}
+   public void setReplyTopic(int replyTopic) {
+/* 51 */     this.replyTopic = replyTopic;
+   }
 
-	public void setReplyBy(int replyBy) {
-		this.replyBy = replyBy;
-	}
-	
-	
-	
-	
-}
+   public int getReplyBy() {
+/* 55 */     return this.replyBy;
+   }
+
+   public void setReplyBy(int replyBy) {
+/* 59 */     this.replyBy = replyBy;
+   }
+ }

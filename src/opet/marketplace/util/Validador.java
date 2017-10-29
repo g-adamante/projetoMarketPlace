@@ -7,11 +7,11 @@ import java.util.regex.Pattern;
 
 public class Validador
 {
-    /* Atributos est·ticos */
+    /* Atributos est√°ticos */
     private static final Pattern PADRAO_EMAIL = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
 
-    /* MÈtodos est·ticos */
-    // MÈtodo para verificar se o par‚metro È alfanumÈrico
+    /* M√©todos est√°ticos */
+    // M√©todo para verificar se o par√¢metro √© alfanum√©rico
     public static boolean alfanumerico(String pTexto)
     {
         if (pTexto == null)
@@ -28,7 +28,7 @@ public class Validador
         return true;
     }
 
-    // MÈtodo para verificar se o par‚metro È alfabÈtico
+    // M√©todo para verificar se o par√¢metro √© alfab√©tico
     public static boolean alfabetico(String pTexto)
     {
         if (pTexto == null)
@@ -45,7 +45,7 @@ public class Validador
         return true;
     }
 
-    // MÈtodo para verificar se o par‚metro È numÈrico
+    // M√©todo para verificar se o par√¢metro √© num√©rico
     public static boolean numerico(String pTexto)
     {
         if (pTexto == null)
@@ -66,7 +66,7 @@ public class Validador
         return true;
     }
 
-    // MÈtodo para verificar se o par‚metro È numÈrico real, aceita o ponto
+    // M√©todo para verificar se o par√¢metro √© num√©rico real, aceita o ponto
     public static boolean numericoReal(String pTexto)
     {
         if (pTexto == null)
@@ -96,7 +96,7 @@ public class Validador
         return true;
     }
 
-    // MÈtodo para verificar se o par‚metro È uma data v·lida de acordo com o padr„o informado
+    // M√©todo para verificar se o par√¢metro √© uma data v√°lida de acordo com o padr√£o informado
     public static boolean validarData(String pFormato, String pData)
     {
         if (pFormato == null || pData == null)
@@ -115,13 +115,13 @@ public class Validador
         }
     }
 
-    // MÈtodo sobrecarregado para validar data, que assume o padr„o Brasileiro
+    // M√©todo sobrecarregado para validar data, que assume o padr√£o Brasileiro
     public static boolean validarData(String pData)
     {
         return validarData("dd'/'MM'/'yyyy", pData);
     }
 
-    // MÈtodo para validar se um e-mail est· ok
+    // M√©todo para validar se um e-mail est√° ok
     public static boolean validarEmail(String pEmail)
     {
         return PADRAO_EMAIL.matcher(pEmail).matches();

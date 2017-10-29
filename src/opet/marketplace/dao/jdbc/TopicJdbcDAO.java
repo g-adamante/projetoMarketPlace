@@ -1,7 +1,6 @@
-package opet.marketplace.dao.jdbc;
+ package opet.marketplace.dao.jdbc;
 
-import java.sql.Connection;
-import java.sql.Date;
+ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,391 +10,399 @@ import java.util.List;
 
 import opet.marketplace.dao.ITopicDAO;
 import opet.marketplace.jdbc.Connector;
+import opet.marketplace.util.ExceptionUtil;
 import opet.marketplace.vo.Categories;
 import opet.marketplace.vo.Topic;
 
-public class TopicJdbcDAO implements ITopicDAO {
-	// instancia uma conexao com o banco de dados
-	private Connection sConnection = new Connector().connect();
+ public class TopicJdbcDAO
+   implements ITopicDAO
+ {
+/*  19 */   private Connection sConnection = new Connector().connect();
 
-	@Override
-	public Topic create(Topic pTopic) {
-		// criando um topico de retorno
-		Topic tTopic = null;
 
-		// transforma categoria em INT
-		int categoryInt = pTopic.getTopicCategory().ordinal();
+   @Override
+public Topic create(Topic pTopic)
+   {
+/*  24 */     Topic tTopic = null;
 
-		try {
-			PreparedStatement tPS = null;
-			tPS = sConnection.prepareStatement(
-					"INSERT INTO TOPICS" + "(TOPIC_ID, TOPIC_SUBJECT, TOPIC_MESSAGE, TOPIC_DATE, TOPIC_CAT, TOPIC_BY) "
-							+ "VALUES(TOPIC_SEQ.NEXTVAL,?,?,?,?,?)");
 
-			// Colocando os parï¿½metros recebidos no comando JDBC
-			tPS.setString(1, pTopic.getTopicSubject());
-			tPS.setString(2, pTopic.getTopicMessage());
-			tPS.setDate(3, new Date(pTopic.getTopicDate().getTime()));
-			tPS.setInt(4, categoryInt);
-			tPS.setInt(5, pTopic.getTopicBy());
+/*  27 */     int categoryInt = pTopic.getTopicCategory().ordinal();
+     try
+     {
+/*  30 */       PreparedStatement tPS = null;
+/*  31 */       tPS = this.sConnection.prepareStatement(
+/*  32 */         "INSERT INTO TOPICS(TOPIC_ID, TOPIC_SUBJECT, TOPIC_MESSAGE, TOPIC_DATE, TOPIC_CAT, TOPIC_BY) VALUES(TOPIC_SEQ.NEXTVAL,?,?,?,?,?)");
 
-			// Executando o comando de gravaï¿½ï¿½o e salvando o nï¿½mero de
-			// registros
-			// incluï¿½dos
 
-			int tQtdeReg = tPS.executeUpdate();
 
-			// Verificando se um registro foi incluido
-			if (tQtdeReg == 1) {
-				// Copiando o contato para o retorno
-				tTopic = pTopic;
-
-				// Recuperando o ID gerado pelo Oracle
-				// Algoritmo alternativo pois o indicado no WAR. não funcionava.
-				// Cria um Statement que usa a funcao SQL currval para encontrar
-				// o valor atual de uma sequencia
+/*  36 */       tPS.setString(1, pTopic.getTopicSubject());
+/*  37 */       tPS.setString(2, pTopic.getTopicMessage());
+/*  38 */       tPS.setDate(3, new java.sql.Date(pTopic.getTopicDate().getTime()));
+/*  39 */       tPS.setInt(4, categoryInt);
+/*  40 */       tPS.setInt(5, pTopic.getTopicBy());
 
-				Statement currvalStatement = null;
-				ResultSet currvalResultSet = null;
-				String sql_currval = "SELECT TOPIC_SEQ.CURRVAL FROM dual";
 
-				currvalStatement = sConnection.createStatement();
-				currvalResultSet = currvalStatement.executeQuery(sql_currval);
 
-				// se verdadeiro, retorna a ID e coloca como parâmetro no
-				// usuário que esse método retorna
-				if (currvalResultSet.next()) {
-					tTopic.setTopicId(
 
-							currvalResultSet.getInt(1)
 
-					);
-				}
+/*  46 */       int tQtdeReg = tPS.executeUpdate();
 
-			}
 
-			// Liberando os recursos JDBC
+/*  49 */       if (tQtdeReg == 1)
+       {
+/*  51 */         tTopic = pTopic;
 
-			tPS.close();
-		} catch (SQLException tExcept) {
-			opet.marketplace.util.ExceptionUtil.mostrarErro(tExcept, "Erro no metodo de inserção de topico");
-		}
 
-		return tTopic;
-	}
-
-	@Override
-	public Topic recovery(int pInt) {
 
-		// Definindo o objeto Topic de Retorno
-		Topic tTopic = null;
-
-		try {
-
-			// Criando o comando SQL e o comando JDBC
-			PreparedStatement tPS = null;
-			tPS = sConnection.prepareStatement("SELECT * FROM TOPICS WHERE TOPIC_ID = ?");
-
-			// Colocando o parï¿½metro recebido no comando JDBC
-			tPS.setInt(1, pInt);
 
-			// Executando o comando e salvando o ResultSet para processar
-			ResultSet tResultSet = tPS.executeQuery();
 
-			// Verificando se um registro foi lido
-			if (tResultSet.next()) {
-				// Salvando o Contato para retornar depois
-				tTopic = loadTopic(tResultSet);
-			}
 
-			// Liberando os recursos JDBC
-			tResultSet.close();
-			tPS.close();
+/*  58 */         Statement currvalStatement = null;
+/*  59 */         ResultSet currvalResultSet = null;
+/*  60 */         String sql_currval = "SELECT TOPIC_SEQ.CURRVAL FROM dual";
 
-		} catch (SQLException tExcept) {
-			opet.marketplace.util.ExceptionUtil.mostrarErro(tExcept, "Erro no método de recuperação do topico");
+/*  62 */         currvalStatement = this.sConnection.createStatement();
+/*  63 */         currvalResultSet = currvalStatement.executeQuery(sql_currval);
 
-		}
-		// TODO Auto-generated method stub
-		return tTopic;
-	}
 
-	@Override
-	public Topic update(Topic pTopic) {
-		// definindo objeto de retorno
-		Topic tTopic = null;
 
-		// transformando categoria em int
-		int categoryInt = pTopic.getTopicCategory().ordinal();
+/*  67 */         if (currvalResultSet.next()) {
+/*  68 */           tTopic.setTopicId(
 
-		try {
-			// Criando o comando SQL e o comando JDBC
-			PreparedStatement tPS = null;
-			tPS = sConnection.prepareStatement(
-					"UPDATE TOPICS SET" + " TOPIC_SUBJECT = ?, TOPIC_MESSAGE = ?, TOPIC_CAT = ? WHERE TOPIC_ID = ?");
+/*  70 */             currvalResultSet.getInt(1));
+         }
+       }
 
-			// Colocando os parï¿½metros recebidos no comando JDBC
-			tPS.setString(1, pTopic.getTopicSubject());
-			tPS.setString(2, pTopic.getTopicMessage());
-			tPS.setInt(3, categoryInt);
-			tPS.setInt(4, pTopic.getTopicId());
 
-			// Executando o comando de atualizar e salvando o nï¿½mero de
-			// registros alterados
-			int tQtdeReg = tPS.executeUpdate();
 
-			// Verificando se um registro foi alterado
-			if (tQtdeReg == 1) {
-				// Copiando o contato para o retorno
-				tTopic = pTopic;
-			}
 
-			// Liberando os recursos JDBC
 
-			tPS.close();
 
-		} catch (SQLException tExcept) {
-			opet.marketplace.util.ExceptionUtil.mostrarErro(tExcept, "Erro no método de atualização do topico");
-		}
+/*  79 */       tPS.close();
+     } catch (SQLException tExcept) {
+/*  81 */       ExceptionUtil.mostrarErro(tExcept, "Erro no metodo de inserï¿½ï¿½o de topico");
+     }
 
-		return tTopic;
-	}
+/*  84 */     return tTopic;
+   }
 
-	@Override
-	public boolean delete(int pInt) {
-		try {
-			// Criando o comando SQL e o comando JDBC
-			PreparedStatement tPS = null;
-			tPS = sConnection.prepareStatement("DELETE FROM TOPICS" + " WHERE TOPIC_ID  = ?");
 
-			// Colocando o parï¿½metro recebido no comando JDBC
-			tPS.setInt(1, pInt);
 
-			// Executando o comando de remoï¿½ï¿½o e salvando o nï¿½mero de
-			// registros removidos
-			int tQtdeReg = tPS.executeUpdate();
+   @Override
+public Topic recovery(int pInt)
+   {
+/*  91 */     Topic tTopic = null;
 
-			// Liberando os recursos JDBC
-			tPS.close();
 
-			// Se excluiu um registro, a remoção foi efetuada com sucesso
-			return tQtdeReg == 1;
-		} catch (SQLException tExcept) {
-			opet.marketplace.util.ExceptionUtil.mostrarErro(tExcept, "Erro no método de deleção do topico");
-		}
-		return false;
-	}
+     try
+     {
+/*  96 */       PreparedStatement tPS = null;
+/*  97 */       tPS = this.sConnection.prepareStatement("SELECT * FROM TOPICS WHERE TOPIC_ID = ?");
 
-	@Override
-	public List<Topic> search() {
-		// criando lista de Topic
-		List<Topic> tList = new ArrayList<>();
 
-		try {
-			// Criando o comando SQL e o comando JDBC
-			PreparedStatement tPS = null;
-			tPS = sConnection.prepareStatement("SELECT * FROM TOPICS ORDER BY UPPER(TOPIC_ID)");
+/* 100 */       tPS.setInt(1, pInt);
 
-			// Jogando resultados em resultset e executando PS
 
-			ResultSet tRS = tPS.executeQuery();
+/* 103 */       ResultSet tResultSet = tPS.executeQuery();
 
-			// loop para processar os resultados em lista
 
-			while (tRS.next()) {
-				// usando o método loadUser para ler o contato e o instanciar em
-				// tUser
+/* 106 */       if (tResultSet.next())
+       {
+/* 108 */         tTopic = loadTopic(tResultSet);
+       }
 
-				Topic tTopic = loadTopic(tRS);
 
-				// salva em lista
-				tList.add(tTopic);
+/* 112 */       tResultSet.close();
+/* 113 */       tPS.close();
+     }
+     catch (SQLException tExcept) {
+/* 116 */       ExceptionUtil.mostrarErro(tExcept, "Erro no mï¿½todo de recuperaï¿½ï¿½o do topico");
+     }
 
-			}
 
-			tRS.close();
-			tPS.close();
+/* 120 */     return tTopic;
+   }
 
-		} catch (SQLException tExcept) {
-			opet.marketplace.util.ExceptionUtil.mostrarErro(tExcept,
-					"Erro no método de recuperacao de lsita de topicos");
-		}
 
-		return tList;
-	}
+   @Override
+public Topic update(Topic pTopic)
+   {
+/* 126 */     Topic tTopic = null;
 
-	@Override
-	public List<Topic> searchBySubject(String pString) {
-		// usando caracteres coringas para facilitar pesquisa
-		String tSearchTopic = "%" + pString + "%";
 
-		// cria lista de users
-		List<Topic> tList = new ArrayList<>();
+/* 129 */     int categoryInt = pTopic.getTopicCategory().ordinal();
 
-		try {
-			// Criando o comando SQL e o comando JDBC
-			PreparedStatement tPS = null;
-			tPS = sConnection.prepareStatement(
+     try
+     {
+/* 133 */       PreparedStatement tPS = null;
+/* 134 */       tPS = this.sConnection.prepareStatement(
+/* 135 */         "UPDATE TOPICS SET TOPIC_SUBJECT = ?, TOPIC_MESSAGE = ?, TOPIC_CAT = ? WHERE TOPIC_ID = ?");
 
-					"SELECT * FROM TOPICS WHERE UPPER(TOPIC_SUBJECT) LIKE UPPER(?) ORDER BY UPPER(TOPIC_ID)"
 
-			);
+/* 138 */       tPS.setString(1, pTopic.getTopicSubject());
+/* 139 */       tPS.setString(2, pTopic.getTopicMessage());
+/* 140 */       tPS.setInt(3, categoryInt);
+/* 141 */       tPS.setInt(4, pTopic.getTopicId());
 
-			tPS.setString(1, tSearchTopic);
 
-			// Jogando resultados em resultset e executando PS
 
-			ResultSet tRS = tPS.executeQuery();
+/* 145 */       int tQtdeReg = tPS.executeUpdate();
 
-			// loop para processar os resultados em lista
 
-			while (tRS.next()) {
-				// usando o método loadUser para ler o contato e o instanciar em
-				// tUser
+/* 148 */       if (tQtdeReg == 1)
+       {
+/* 150 */         tTopic = pTopic;
+       }
 
-				Topic tTopic = loadTopic(tRS);
 
-				// salva em lista
-				tList.add(tTopic);
 
-			}
+/* 155 */       tPS.close();
+     }
+     catch (SQLException tExcept) {
+/* 158 */       ExceptionUtil.mostrarErro(tExcept, "Erro no mï¿½todo de atualizaï¿½ï¿½o do topico");
+     }
 
-			tRS.close();
-			tPS.close();
+/* 161 */     return tTopic;
+   }
 
-		} catch (SQLException tExcept) {
-			opet.marketplace.util.ExceptionUtil.mostrarErro(tExcept,
-					"Erro no método de pesquisa por assunto na de lista de topicos");
-		}
+   @Override
+public boolean delete(int pInt)
+   {
+     try
+     {
+/* 168 */       PreparedStatement tPS = null;
+/* 169 */       tPS = this.sConnection.prepareStatement("DELETE FROM TOPICS WHERE TOPIC_ID  = ?");
 
-		return tList;
-	}
 
-	@Override
-	public List<Topic> searchByUser(int pInt) {
+/* 172 */       tPS.setInt(1, pInt);
 
-		// cria lista de users
-		List<Topic> tList = new ArrayList<>();
 
-		try {
-			// Criando o comando SQL e o comando JDBC
-			PreparedStatement tPS = null;
-			tPS = sConnection.prepareStatement(
 
-					"SELECT * FROM TOPICS WHERE TOPIC_BY = ?"
+/* 176 */       int tQtdeReg = tPS.executeUpdate();
 
-			);
 
-			tPS.setInt(1, pInt);
+/* 179 */       tPS.close();
 
-			// Jogando resultados em resultset e executando PS
 
-			ResultSet tRS = tPS.executeQuery();
+/* 182 */       return tQtdeReg == 1;
+     } catch (SQLException tExcept) {
+/* 184 */       ExceptionUtil.mostrarErro(tExcept, "Erro no mï¿½todo de deleï¿½ï¿½o do topico");
+     }
+/* 186 */     return false;
+   }
 
-			// loop para processar os resultados em lista
 
-			while (tRS.next()) {
-				// usando o método loadUser para ler o contato e o instanciar em
-				// tUser
+   @Override
+public List<Topic> search()
+   {
+/* 192 */     List<Topic> tList = new ArrayList();
 
-				Topic tTopic = loadTopic(tRS);
+     try
+     {
+/* 196 */       PreparedStatement tPS = null;
+/* 197 */       tPS = this.sConnection.prepareStatement("SELECT * FROM TOPICS ORDER BY UPPER(TOPIC_ID)");
 
-				// salva em lista
-				tList.add(tTopic);
 
-			}
 
-			tRS.close();
-			tPS.close();
+/* 201 */       ResultSet tRS = tPS.executeQuery();
 
-		} catch (SQLException tExcept) {
-			opet.marketplace.util.ExceptionUtil.mostrarErro(tExcept,
-					"Erro no método de pesquisa por usuario (autor) na lista de topicos");
-		}
 
-		return tList;
-	}
 
-	@Override
-	public List<Topic> searchByCategory(Categories pCategory) {
+/* 205 */       while (tRS.next())
+       {
 
-		// transformando categoria em int
-		int categoryInt = pCategory.ordinal();
 
-		// cria lista de users
-		List<Topic> tList = new ArrayList<>();
+/* 209 */         Topic tTopic = loadTopic(tRS);
 
-		try {
-			// Criando o comando SQL e o comando JDBC
-			PreparedStatement tPS = null;
-			tPS = sConnection.prepareStatement(
 
-					"SELECT * FROM TOPICS WHERE TOPIC_BY = ?"
+/* 212 */         tList.add(tTopic);
+       }
 
-			);
 
-			tPS.setInt(1, categoryInt);
+/* 216 */       tRS.close();
+/* 217 */       tPS.close();
+     }
+     catch (SQLException tExcept) {
+/* 220 */       ExceptionUtil.mostrarErro(tExcept,
+/* 221 */         "Erro no mï¿½todo de recuperacao de lsita de topicos");
+     }
 
-			// Jogando resultados em resultset e executando PS
+/* 224 */     return tList;
+   }
 
-			ResultSet tRS = tPS.executeQuery();
 
-			// loop para processar os resultados em lista
+   @Override
+public List<Topic> searchBySubject(String pString)
+   {
+/* 230 */     String tSearchTopic = "%" + pString + "%";
 
-			while (tRS.next()) {
-				// usando o método loadUser para ler o contato e o instanciar em
-				// tUser
 
-				Topic tTopic = loadTopic(tRS);
+/* 233 */     List<Topic> tList = new ArrayList();
 
-				// salva em lista
-				tList.add(tTopic);
+     try
+     {
+/* 237 */       PreparedStatement tPS = null;
+/* 238 */       tPS = this.sConnection.prepareStatement(
 
-			}
+/* 240 */         "SELECT * FROM TOPICS WHERE UPPER(TOPIC_SUBJECT) LIKE UPPER(?) ORDER BY UPPER(TOPIC_ID)");
 
-			tRS.close();
-			tPS.close();
 
-		} catch (SQLException tExcept) {
-			opet.marketplace.util.ExceptionUtil.mostrarErro(tExcept,
-					"Erro no método de pesquisa por categoria na de lista topicos");
-		}
 
-		return tList;
-	}
+/* 244 */       tPS.setString(1, tSearchTopic);
 
-	private Topic loadTopic(ResultSet tResultSet) throws SQLException {
 
-		int topicId;
-		String topicSubject;
-		String topicMessage;
-		Date topicDate;
-		int topicCatInt;
-		int topicBy;
-		Categories topicCat;
 
-		// Recuperando as informaï¿½ï¿½es do ResultSet e colocando objeto criado
-		topicId = tResultSet.getInt("TOPIC_ID");
-		topicSubject = tResultSet.getString("TOPIC_SUBJECT");
-		topicMessage = tResultSet.getString("TOPIC_MESSAGE");
-		topicDate = tResultSet.getDate("TOPIC_DATE");
-		topicBy = tResultSet.getInt("TOPIC_BY");
-		topicCatInt = tResultSet.getInt("TOPIC_CAT");
+/* 248 */       ResultSet tRS = tPS.executeQuery();
 
-		// Faz um loop no enum categories. Se a categoria tem o mesmo ID que a
-		// ordem de categorias,
-		// atribui o valor da categoria a variavel topicCat
-		for (Categories cat : Categories.values()) {
-			if (cat.ordinal() == topicCatInt) {
-				topicCat = cat;
-				Topic tTopic = new Topic(topicId, topicSubject, topicMessage, topicDate, topicCat, topicBy);
-				return tTopic;
-			}
 
-		}
 
-		return null;
+/* 252 */       while (tRS.next())
+       {
 
-	}
 
-}
+/* 256 */         Topic tTopic = loadTopic(tRS);
+
+
+/* 259 */         tList.add(tTopic);
+       }
+
+
+/* 263 */       tRS.close();
+/* 264 */       tPS.close();
+     }
+     catch (SQLException tExcept) {
+/* 267 */       ExceptionUtil.mostrarErro(tExcept,
+/* 268 */         "Erro no mï¿½todo de pesquisa por assunto na de lista de topicos");
+     }
+
+/* 271 */     return tList;
+   }
+
+
+
+   @Override
+public List<Topic> searchByUser(int pInt)
+   {
+/* 278 */     List<Topic> tList = new ArrayList();
+
+     try
+     {
+/* 282 */       PreparedStatement tPS = null;
+/* 283 */       tPS = this.sConnection.prepareStatement(
+
+/* 285 */         "SELECT * FROM TOPICS WHERE TOPIC_BY = ?");
+
+
+
+/* 289 */       tPS.setInt(1, pInt);
+
+
+
+/* 293 */       ResultSet tRS = tPS.executeQuery();
+
+
+
+/* 297 */       while (tRS.next())
+       {
+
+
+/* 301 */         Topic tTopic = loadTopic(tRS);
+
+
+/* 304 */         tList.add(tTopic);
+       }
+
+
+/* 308 */       tRS.close();
+/* 309 */       tPS.close();
+     }
+     catch (SQLException tExcept) {
+/* 312 */       ExceptionUtil.mostrarErro(tExcept,
+/* 313 */         "Erro no mï¿½todo de pesquisa por usuario (autor) na lista de topicos");
+     }
+
+/* 316 */     return tList;
+   }
+
+
+
+   @Override
+public List<Topic> searchByCategory(Categories pCategory)
+   {
+/* 323 */     int categoryInt = pCategory.ordinal();
+
+
+/* 326 */     List<Topic> tList = new ArrayList();
+
+     try
+     {
+/* 330 */       PreparedStatement tPS = null;
+/* 331 */       tPS = this.sConnection.prepareStatement(
+
+/* 333 */         "SELECT * FROM TOPICS WHERE TOPIC_BY = ?");
+
+
+
+/* 337 */       tPS.setInt(1, categoryInt);
+
+
+
+/* 341 */       ResultSet tRS = tPS.executeQuery();
+
+
+
+/* 345 */       while (tRS.next())
+       {
+
+
+/* 349 */         Topic tTopic = loadTopic(tRS);
+
+
+/* 352 */         tList.add(tTopic);
+       }
+
+
+/* 356 */       tRS.close();
+/* 357 */       tPS.close();
+     }
+     catch (SQLException tExcept) {
+/* 360 */       ExceptionUtil.mostrarErro(tExcept,
+/* 361 */         "Erro no mï¿½todo de pesquisa por categoria na de lista topicos");
+     }
+
+/* 364 */     return tList;
+   }
+
+
+
+
+
+
+
+
+
+   private Topic loadTopic(ResultSet tResultSet)
+     throws SQLException
+   {
+/* 378 */     int topicId = tResultSet.getInt("TOPIC_ID");
+/* 379 */     String topicSubject = tResultSet.getString("TOPIC_SUBJECT");
+/* 380 */     String topicMessage = tResultSet.getString("TOPIC_MESSAGE");
+/* 381 */     java.sql.Date topicDate = tResultSet.getDate("TOPIC_DATE");
+/* 382 */     int topicBy = tResultSet.getInt("TOPIC_BY");
+/* 383 */     int topicCatInt = tResultSet.getInt("TOPIC_CAT");
+
+
+     Categories[] arrayOfCategories;
+
+/* 388 */     int j = (arrayOfCategories = Categories.values()).length; for (int i = 0; i < j; i++) { Categories cat = arrayOfCategories[i];
+/* 389 */       if (cat.ordinal() == topicCatInt) {
+/* 390 */         Categories topicCat = cat;
+/* 391 */         Topic tTopic = new Topic(topicId, topicSubject, topicMessage, topicDate, topicCat, topicBy);
+/* 392 */         return tTopic;
+       }
+     }
+
+
+/* 397 */     return null;
+   }
+ }
