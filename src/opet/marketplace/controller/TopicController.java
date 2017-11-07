@@ -126,4 +126,19 @@ public class TopicController
 
         return sucessList;
     }
+
+    public boolean addTopicLawyer(int userId, int topicId)
+    {
+
+        if (topicModel.addTopicLawyer(userId, topicId))
+        {
+            System.out.println("Tópico atribuido com sucesso");
+            return true;
+        }
+        else
+        {
+            System.out.println("Falha na atribuição do tópico");
+            return false;
+        }
+    }
 }

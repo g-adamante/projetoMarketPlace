@@ -13,6 +13,15 @@ import java.sql.SQLException;
    PreparedStatement preparedStatement;
    ResultSet resultSet;
    Connection connection;
+//
+//   /* 11 */   String dbUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+//   /* 12 */   String dbUser = "aluno";
+//   /* 13 */   String dbPassword = "aluno";
+//      PreparedStatement preparedStatement;
+//      ResultSet resultSet;
+//      Connection connection;
+
+
 
    public Connector()
    {

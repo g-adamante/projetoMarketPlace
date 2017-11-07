@@ -31,7 +31,6 @@ public Reply create(Reply pReply)
 /*  29 */         "INSERT INTO REPLIES(REPLY_ID, REPLY_CONTENT, REPLY_DATE, REPLY_TOPIC, REPLY_BY) VALUES(REPLIES_SEQ.NEXTVAL,?,?,?,?)");
 
 
-
 /*  33 */       tPS.setString(1, pReply.getReplyContent());
 /*  34 */       tPS.setDate(2, new java.sql.Date(pReply.getReplyDate().getTime()));
 /*  35 */       tPS.setInt(3, pReply.getReplyTopic());
@@ -186,7 +185,7 @@ public boolean delete(int pInt)
    @Override
 public List<Reply> search()
    {
-/* 183 */     List<Reply> tList = new ArrayList();
+/* 183 */     List<Reply> tList = new ArrayList<Reply>();
 
      try
      {

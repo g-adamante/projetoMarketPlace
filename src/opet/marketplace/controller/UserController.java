@@ -126,6 +126,19 @@ public class UserController
         return sucessUser;
     }
 
+    public User searchById(int pId) {
+
+        User sucessUser = this.userModel.searchById(pId);
+
+        if (sucessUser == null)
+        {
+            System.out.println("Falha na pesquisa por email de usuarios.");
+            return null;
+        }
+
+        return sucessUser;
+    }
+
     public boolean validateLogin(String pUserEmail, String pUserPass)
     {
         boolean sucessBoolean = this.userModel.validateLogin(pUserEmail, pUserPass);

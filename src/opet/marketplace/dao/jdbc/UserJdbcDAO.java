@@ -337,6 +337,50 @@ public User searchByEmail(String pEmail)
 /* 329 */     return tUser;
    }
 
+
+   public User searchById(int pId)
+      {
+     User tUser = null;
+
+        try
+        {
+       PreparedStatement tPS = null;
+      tPS = this.sConnection.prepareStatement(
+
+         "SELECT * FROM USERS WHERE USER_ID = ?");
+
+
+
+   /* 303 */       tPS.setInt(1, pId);
+
+
+
+   /* 307 */       ResultSet tRS = tPS.executeQuery();
+
+
+
+   /* 311 */       while (tRS.next())
+          {
+
+
+   /* 315 */         tUser = loadUser(tRS);
+          }
+
+
+
+
+   /* 321 */       tRS.close();
+   /* 322 */       tPS.close();
+        }
+        catch (SQLException tExcept) {
+   /* 325 */       ExceptionUtil.mostrarErro(tExcept,
+   /* 326 */         "Erro no método de pesquisa por ID na de lista de usuário");
+        }
+
+   /* 329 */     return tUser;
+      }
+
+
    public boolean validateLogin(String pUserEmail, String pUserPass)
    {
      try {

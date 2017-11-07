@@ -1,59 +1,89 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Menu Principal</title>
+		<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/style.css"></link>
+		<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/signin.css"></link>
+	<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/bootstrap.min.css"></link>
+	<script src="/projectMarketPlaceWeb/assets/js/bootstrap.min.js"></script>
 </h:head>
 <h:body>
-<h:form>
+	<h:form>
 
-<div id="header">
-    
-    <h1>I'm the Law</h1>
-    <hr/>
-    </div> 
-    
-<div id="userData">
-    <ul>
-    <li>Nome: <b>#{loginBean.getActiveUser().getUserName()}</b></li>
-    <li>Email: <b>#{loginBean.getActiveUser().getUserEmail()}</b></li>
-    <li>Tipo: <b>#{mainMenuBean.getUserType()}</b></li>        
-    </ul>
-<hr/>
-    <p><a href="/projectMarketPlaceWeb/marketplace/alterUser.xhtml">Alterar dados</a> | <a href="#{loginBean.logOut()}">Logout</a> </p>
-    
-</div>
+		<div id="header">
+			<div id="nav"
+				class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
-<div id="menu">
-<hr/>
-    
-<h3>Alterar Usuário </h3>
-		<h:outputText value="Username" />
-		<h:inputText id="username" value="#{userAlterBean.userName}"></h:inputText>
-		<h:message for="username"></h:message>
-		<br></br><br></br>
-		
-		<h:outputText value="Password" />
-		<h:inputSecret id="userpassword" value="#{userAlterBean.userPass}"></h:inputSecret>
-		<h:message for="userpassword"></h:message>
-		<br></br><br></br>
-		
-		<h:outputText value="Email" />
-		<h:inputText id="useremail" value="#{userAlterBean.userEmail}"></h:inputText>
-		<h:message for="useremail"></h:message>
-		<br></br><br></br>
-		
-		<h:outputText value="Tipo" />
-		<h:inputText id="usertype" value="#{userAlterBean.userType}"></h:inputText>
-		<h:message for="usertype"></h:message>
-		<br></br><br></br>
+				<a class="navbar-brand" href="#">Menu</a>
 
-		<h:commandButton action="#{userAlterBean.alterUser()}"
-			value="Alterar dados"></h:commandButton>
-    <h:commandButton action="/marketplace/mainMenu" immediate="true" value="Voltar"/>
-</div>
-    
-</h:form>
+				<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a class="nav-link" href="/projectMarketPlaceWeb/marketplace/alterUser.xhtml">Alterar
+								dados</a></li>
+						<li class="nav-item"><a class="nav-link" href="#{loginBean.logOut()}">Logout</a>
+						</li>
+						</ul>
+						<a class="navbar-brand" href="#">Usuário:</a>
+						<ul class="navbar-nav mr-auto">
+						
+						<li class="nav-item"><span class="nav-link">Nome: <b>#{loginBean.getActiveUser().getUserName()}</b></span></li>
+						<li class="nav-item"><span class="nav-link">Email: <b>#{loginBean.getActiveUser().getUserEmail()}</b></span></li>
+						<li class="nav-item"><span class="nav-link">Tipo: <b>#{mainMenuBean.getUserType()}</b></span></li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="menu">
+			<hr />
+
+			<h3>Alterar Conta</h3>
+			<h:outputText value="Username" />
+			<h:inputText id="username" value="#{userAlterBean.userName}"
+				required="true" requiredMessage="O nome de usuário é obrigatório"
+				validatorMessage="Username deve ter no máximo 50 caracteres">
+				<f:validateLength minimum="1" maximum="50" />
+			</h:inputText>
+			<h:message for="username" infoClass="info" errorClass="error"></h:message>
+			<br></br> <br></br>
+
+			<h:outputText value="Password" />
+			<h:inputSecret id="userpassword" value="#{userAlterBean.userPass}"
+				required="true" requiredMessage="A senha é obrigatória"
+				validatorMessage="Senha deve ter no máximo 50 caracteres">
+				<f:validateLength minimum="1" maximum="50" />
+			</h:inputSecret>
+			<h:message for="userpassword" infoClass="info" errorClass="error"></h:message>
+			<br></br> <br></br>
+
+			<h:outputText value="Email" />
+			<h:inputText id="useremail" value="#{userAlterBean.userEmail}"
+				required="true" requiredMessage="O email é obrigatório"
+				validatorMessage="O email é deve ter no máximo 50 caracteres">
+				<f:validateLength minimum="1" maximum="50" />
+			</h:inputText>
+			<h:message for="useremail" infoClass="info" errorClass="error"></h:message>
+			<br></br> <br></br>
+
+			<h:outputText value="Você é advogado?" />
+			<h:selectBooleanCheckbox id="userlawyer"
+				value="#{userAlterBean.userLawyer}"></h:selectBooleanCheckbox>
+			<h:message for="userlawyer"></h:message>
+			<br></br> <br></br>
+
+			<h:commandButton action="#{userAlterBean.alterUser()}"
+				value="Alterar dados"></h:commandButton>
+			<h:commandButton action="/index" immediate="true" value="Voltar" />
+		</div>
+
+	</h:form>
 </h:body>
 </html>

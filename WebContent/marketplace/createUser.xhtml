@@ -1,49 +1,90 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<title>Criar Usuário</title>
+	<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/style.css"></link>
+	<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/signin.css"></link>
+	<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/bootstrap.min.css"></link>
+	<script src="/projectMarketPlaceWeb/assets/js/bootstrap.min.js"></script>
 </h:head>
 <h:body>
-<h:form>
+	<div class="container">
 
-<div id="header">
-    
-    <h1>I'm the Law</h1>
-    <hr/>
-    </div> 
-    
 
-<div id="menu">
-<hr/>
-    
-<h3>Criar Usuário </h3>
-		<h:outputText value="Username" />
-		<h:inputText id="username" value="#{userCreateBean.userName}"></h:inputText>
-		<h:message for="username"></h:message>
-		<br></br><br></br>
-		
-		<h:outputText value="Password" />
-		<h:inputSecret id="userpassword" value="#{userCreateBean.userPass}"></h:inputSecret>
-		<h:message for="userpassword"></h:message>
-		<br></br><br></br>
-		
-		<h:outputText value="Email" />
-		<h:inputText id="useremail" value="#{userCreateBean.userEmail}"></h:inputText>
-		<h:message for="useremail"></h:message>
-		<br></br><br></br>
-		
-		<h:outputText value="Tipo" />
-		<h:inputText id="usertype" value="#{userCreateBean.userType}"></h:inputText>
-		<h:message for="usertype"></h:message>
-		<br></br><br></br>
+		<div id="header">
 
-		<h:commandButton action="#{userCreateBean.createUser()}"
-			value="Criar Conta"></h:commandButton>
-    <h:commandButton action="/index" immediate="true" value="Voltar"/>
-</div>
-    
-</h:form>
+			<h1>I'm the Law</h1>
+			<hr />
+		</div>
+
+
+		<div id="content" class="offset-md-3 col-md-6">
+			<hr />
+
+
+			<div class="jumbotron text-center">
+				<h:form class="form-signin">
+					<h3 class="form-signin-heading">Criar Usuário</h3>
+					<h:outputText value="Username" />
+					<h:inputText type="name" id="username" class="form-control"
+						placeholder="Username" value="#{userCreateBean.userName}"
+						required="true" requiredMessage="O nome de usuário é obrigatório"
+						validatorMessage="Username deve ter no máximo 50 caracteres">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+					<h:message for="username" infoClass="info" errorClass="error"></h:message>
+					<br></br>
+					<br></br>
+
+					<h:outputText value="Senha" />
+					<h:inputSecret id="userpassword" value="#{userCreateBean.userPass}"
+						required="true" requiredMessage="A senha é obrigatória"
+						validatorMessage="Senha deve ter no máximo 50 caracteres"
+						type="password" class="form-control" placeholder="Password">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputSecret>
+					<h:message for="userpassword" infoClass="info" errorClass="error"></h:message>
+					<br></br>
+					<br></br>
+
+					<h:outputText value="Email" />
+					<h:inputText id="useremail" value="#{userCreateBean.userEmail}"
+						required="true" requiredMessage="O email é obrigatório"
+						validatorMessage="O email é deve ter no máximo 50 caracteres"
+						type="email"  class="form-control"
+						placeholder="Email address">
+						<f:validateLength minimum="1" maximum="50" />
+					</h:inputText>
+					<h:message for="useremail" infoClass="info" errorClass="error"></h:message>
+					<br></br>
+					<br></br>
+
+					<h:outputText value="Você é advogado?" />
+					<h:selectBooleanCheckbox value="#{userCreateBean.userLawyer}"
+						id="usertype" />
+					<h:message for="usertype"></h:message>
+					<br></br>
+					<br></br>
+
+					<h:commandButton class="btn btn-lg btn-primary btn-block"
+						action="#{userCreateBean.createUser()}" value="Criar Conta"></h:commandButton>
+
+					<br></br>
+					<h:commandButton class="btn btn-sm btn-primary" action="/index"
+						immediate="true" value="Voltar" />
+				</h:form>
+			</div>
+
+		</div>
+
+
+	</div>
 </h:body>
+
 </html>

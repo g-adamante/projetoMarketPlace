@@ -2,10 +2,13 @@ package opet.marketplace.bean;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import opet.marketplace.controller.UserController;
+import opet.marketplace.vo.Lawyer;
 import opet.marketplace.vo.User;
 
 @ManagedBean(name = "loginBean")
@@ -61,20 +64,47 @@ public class LoginBean
 
     public String validateLogin()
     {
+        FacesContext context = FacesContext.getCurrentInstance();
         boolean valid = this.oUserController.validateLogin(getUserEmail(), getUserPass());
 
         if (valid)
         {
             this.activeUser = this.oUserController.searchByEmail(getUserEmail());
-            System.out.println(this.activeUser.getUserId());
             return "/marketplace/mainMenu";
         }
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário ou senha incorretos. Tente novamente.", null));
+        return "Falha no Login";
+    }
 
-        return "falha";
+    public String logOut()
+    {
+        // setActiveUser(null);
+        return "/projectMarketPlaceWeb/index.xhtml";
     }
-    
-    public String logOut(){
-//    	setActiveUser(null);
-    	return "/projectMarketPlaceWeb/index.xhtml";
+
+    public boolean isLawyer()
+    {
+
+        try
+        {
+            if (getActiveUser() instanceof Lawyer)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+
     }
+
+    public User searchUserID(int pUserId) {
+        return oUserController.searchById(pUserId);
+    }
+
 }

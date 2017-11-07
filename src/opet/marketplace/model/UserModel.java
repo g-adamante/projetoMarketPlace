@@ -68,6 +68,10 @@ import opet.marketplace.vo.User;
 /* 67 */     return this.oUserJdbcDAO.searchByEmail(pString);
    }
 
+   public User searchById(int pId) {
+            return this.oUserJdbcDAO.searchById(pId);
+          }
+
    public boolean validateLogin(String pUserEmail, String pUserPass) {
 /* 71 */     return this.oUserJdbcDAO.validateLogin(pUserEmail, pUserPass);
    }

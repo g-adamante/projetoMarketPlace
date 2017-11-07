@@ -4,43 +4,64 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
 	<title>Menu Principal</title>
+		<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/style.css"></link>
+		<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/signin.css"></link>
+	<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/bootstrap.min.css"></link>
+	<script src="/projectMarketPlaceWeb/assets/js/bootstrap.min.js"></script>
+
 </h:head>
 <h:body>
-<h:form>
+	<h:form>
 
-<div id="header">
-    
-    <h1>I'm the Law</h1>
-    <hr/>
-    </div> 
-    
-<div id="userData">
-    <ul>
-    <li>Nome: <b>#{loginBean.getActiveUser().getUserName()}</b></li>
-    <li>Email: <b>#{loginBean.getActiveUser().getUserEmail()}</b></li>
-    <li>Tipo: <b>#{mainMenuBean.getUserType()}</b></li>        
-    </ul>
-<hr/>
-    <p><a href="/projectMarketPlaceWeb/marketplace/alterUser.xhtml">Alterar dados</a> | <a href="#{loginBean.logOut()}">Logout</a> </p>
-    
-</div>
+		<div id="header">
+			<div id="nav"
+				class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 
-<div id="menu">
-<hr/>
-<p>Login com sucesso</p>
-    
-    <h2>Menu</h2>
-    
-    <ul>
-       <li><a href="">Responder Tópico</a></li>
-       <li><a href="/projectMarketPlaceWeb/marketplace/createTopic.xhtml">Criar novo Tópico</a></li>
-       <li><a href="/projectMarketPlaceWeb/marketplace/searchTopics.xhtml" action="#{topicListBean.searchTopics()}">Lista de Tópicos</a></li>      
-        
-    </ul>
-    
-    
-</div>
-    
-</h:form>
+				<a class="navbar-brand" href="#">Menu</a>
+
+				<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a class="nav-link" href="/projectMarketPlaceWeb/marketplace/alterUser.xhtml">Alterar
+								dados</a></li>
+						<li class="nav-item"><a class="nav-link" href="#{loginBean.logOut()}">Logout</a>
+						</li>
+						</ul>
+						<a class="navbar-brand" href="#">Usuário:</a>
+						<ul class="navbar-nav mr-auto">
+						
+						<li class="nav-item"><span class="nav-link">Nome: <b>#{loginBean.getActiveUser().getUserName()}</b></span></li>
+						<li class="nav-item"><span class="nav-link">Email: <b>#{loginBean.getActiveUser().getUserEmail()}</b></span></li>
+						<li class="nav-item"><span class="nav-link">Tipo: <b>#{mainMenuBean.getUserType()}</b></span></li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="menu">
+			<hr />
+
+			<h2>Menu</h2>
+
+			<ul>
+				<!-- //action="#{topicListBean.searchUserTopics()}" //action="#{topicListBean.searchNotAttributedTopics()}" -->
+				<li><a
+					href="/projectMarketPlaceWeb/marketplace/searchUserTopics.xhtml">Responder
+						seus Tópicos</a></li>
+				<li><a
+					href="/projectMarketPlaceWeb/marketplace/searchTopics.xhtml">Lista
+						de Tópicos</a></li>
+				<li><h:commandLink action="/marketplace/createTopic"
+						value="Criar novo Tópico" rendered="#{!loginBean.lawyer}"></h:commandLink></li>
+
+			</ul>
+
+
+		</div>
+
+	</h:form>
 </h:body>
 </html>

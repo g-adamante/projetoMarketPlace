@@ -61,5 +61,11 @@ public class TopicModel
   public List<Topic> searchByUser(int pInt) {
 /* 61 */     return this.oTopicJdbcDAO.searchByUser(pInt);
   }
+
+
+public boolean addTopicLawyer(int userId, int topicId) {
+    return this.oTopicJdbcDAO.addTopicLawyer(userId, topicId);
+}
+
 }
 

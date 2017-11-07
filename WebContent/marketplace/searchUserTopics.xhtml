@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<h:head>
+	<title>Responder Tópicos</title>
+		<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/style.css"></link>
+		<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/signin.css"></link>
+	<link rel="stylesheet" type="text/css"
+		href="/projectMarketPlaceWeb/assets/css/bootstrap.min.css"></link>
+	<script src="/projectMarketPlaceWeb/assets/js/bootstrap.min.js"></script>
+</h:head>
+<h:body>
+	<h:form>
+		<div id="header">
+			<div id="nav"
+				class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+				<a class="navbar-brand" href="#">Menu</a>
+
+				<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a class="nav-link" href="/projectMarketPlaceWeb/marketplace/alterUser.xhtml">Alterar
+								dados</a></li>
+						<li class="nav-item"><a class="nav-link" href="#{loginBean.logOut()}">Logout</a>
+						</li>
+						</ul>
+						<a class="navbar-brand" href="#">Usuário:</a>
+						<ul class="navbar-nav mr-auto">
+						
+						<li class="nav-item"><span class="nav-link">Nome: <b>#{loginBean.getActiveUser().getUserName()}</b></span></li>
+						<li class="nav-item"><span class="nav-link">Email: <b>#{loginBean.getActiveUser().getUserEmail()}</b></span></li>
+						<li class="nav-item"><span class="nav-link">Tipo: <b>#{mainMenuBean.getUserType()}</b></span></li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="menu">
+			<hr />
+
+
+			<h3>Responder Tópicos</h3>
+
+			<table>
+				<tbody>
+					<tr>
+						<td><h:dataTable rendered="#{loginBean.lawyer}"
+								value="#{topicListBean.privateTopicList}" var="topic"
+								styleClass="order-table" headerClass="order-table-header"
+								rowClasses="order-table-odd-row,order-table-even-row">
+
+								<h:column>
+									<f:facet name="header">Assunto</f:facet>
+									<h:outputText value="#{topic.topicSubject}" />
+								</h:column>
+
+								<h:column>
+									<f:facet name="header">Mensagem</f:facet>
+									<h:outputText value="#{topic.topicMessage}" />
+								</h:column>
+
+								<h:column>
+									<f:facet name="header">Categoria</f:facet>
+									<h:outputText value="#{topic.topicCategory}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Responder</f:facet>
+									<h:commandButton action="#{topicListBean.replyTopic(topic)}" />
+								</h:column>
+
+							</h:dataTable> <h:dataTable rendered="#{!loginBean.lawyer}"
+								value="#{topicListBean.clientTopicList}" var="topic"
+								styleClass="order-table" headerClass="order-table-header"
+								rowClasses="order-table-odd-row,order-table-even-row">
+
+								<h:column>
+									<f:facet name="header">Assunto</f:facet>
+									<h:outputText value="#{topic.topicSubject}" />
+								</h:column>
+
+								<h:column>
+									<f:facet name="header">Mensagem</f:facet>
+									<h:outputText value="#{topic.topicMessage}" />
+								</h:column>
+
+								<h:column>
+									<f:facet name="header">Categoria</f:facet>
+									<h:outputText value="#{topic.topicCategory}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Responder</f:facet>
+									<h:commandButton action="#{topicListBean.replyTopic(topic)}" />
+								</h:column>
+
+							</h:dataTable></td>
+					</tr>
+
+				</tbody>
+			</table>
+
+			<h:commandButton rendered="#{loginBean.lawyer}"
+				action="#{topicListBean.searchUserTopics()}" immediate="true"
+				value="Atualizar" />
+			<h:commandButton rendered="#{!loginBean.lawyer}"
+				action="#{topicListBean.searchClientTopics()}" immediate="true"
+				value="Atualizar" />
+			<h:commandButton action="/marketplace/mainMenu" immediate="true"
+				value="Voltar" />
+		</div>
+
+	</h:form>
+</h:body>
+</html>

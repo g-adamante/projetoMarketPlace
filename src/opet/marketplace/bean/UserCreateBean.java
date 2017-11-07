@@ -18,7 +18,7 @@ public class UserCreateBean
 {
 
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 8600853947226721506L;
     private UserController    oUserController;
@@ -26,8 +26,8 @@ public class UserCreateBean
     private String            userEmail;
     private String            userPass;
     private String            userName;
-    private int               userType;
     private Date              date;
+    private boolean           userLawyer;
 
     public UserCreateBean()
     {
@@ -36,12 +36,12 @@ public class UserCreateBean
         this.oUserController = new UserController();
         this.date = new Date();
     }
- 
+
 
     public String createUser()
     {
 
-        if (userType == 1)
+        if (userLawyer)
         {
 
             this.newUser = new Lawyer(1, getUserName(), getUserPass(), getUserEmail(), this.date);
@@ -54,7 +54,10 @@ public class UserCreateBean
         }
 
         this.oUserController.create(this.newUser);
-
+        setUserEmail(null);
+        setUserName(null);
+        setUserPass(null);
+        setUserLawyer(false);
         return "/index";
     }
 
@@ -88,14 +91,16 @@ public class UserCreateBean
         this.userName = pUserName;
     }
 
-    public int getUserType()
+
+    public boolean isUserLawyer()
     {
-        return this.userType;
+        return userLawyer;
     }
 
-    public void setUserType(int pUserType)
+
+    public void setUserLawyer(boolean pUserLawyer)
     {
-        this.userType = pUserType;
+        userLawyer = pUserLawyer;
     }
 
 }

@@ -25,8 +25,8 @@ public class UserAlterBean
     private String            userEmail;
     private String            userPass;
     private String            userName;
-    private int               userType;
     private Date              date;
+    private boolean           userLawyer;
 
     public UserAlterBean()
     {
@@ -35,22 +35,12 @@ public class UserAlterBean
         this.oUserController = new UserController();
         this.date = new Date();
     }
- 
+
 
     public String alterUser()
     {
-        if (this.loginBean == null)
-        {
-            System.out.println("nulo");
 
-        }
-        else
-            if (this.loginBean != null)
-            {
-                System.out.println("Não Nulo");
-            }
-
-        if (userType == 1)
+        if (userLawyer)
         {
 
             this.alteredUser = new Lawyer(this.loginBean.getActiveUser().getUserId(), getUserName(), getUserPass(), getUserEmail(), this.date);
@@ -63,7 +53,10 @@ public class UserAlterBean
         }
 
         this.oUserController.update(this.alteredUser);
-
+        loginBean.setActiveUser(alteredUser);
+        setUserEmail(null);
+        setUserName(null);
+        setUserPass(null);
         return "/marketplace/mainMenu";
     }
 
@@ -97,21 +90,23 @@ public class UserAlterBean
         this.userName = pUserName;
     }
 
-    public int getUserType()
-    {
-        return this.userType;
-    }
-
-    public void setUserType(int pUserType)
-    {
-        this.userType = pUserType;
-    }
-    
 	public LoginBean getLoginBean() {
 		return loginBean;
 	}
 	public void setLoginBean(LoginBean loginBean) {
 		this.loginBean = loginBean;
 	}
+
+
+    public boolean isUserLawyer()
+    {
+        return userLawyer;
+    }
+
+
+    public void setUserLawyer(boolean pUserLawyer)
+    {
+        userLawyer = pUserLawyer;
+    }
 
 }
