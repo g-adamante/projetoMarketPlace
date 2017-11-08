@@ -11,6 +11,7 @@ user_creation_date   TIMESTAMP NOT NULL,
 user_type  number(8) NOT NULL,
 CONSTRAINT user_id_pk PRIMARY KEY (user_id),
 CONSTRAINT user_email_unique UNIQUE (user_email)
+CONSTRAINT user_name_unique UNIQUE (user_name)
 );
 
 
@@ -22,6 +23,7 @@ topic_date      TIMESTAMP NOT NULL,
 topic_cat       number(8) NOT NULL,
 topic_by        number(8) NOT NULL,
 topic_lawyer    number(8),
+topic_status    number(8),
 PRIMARY KEY (topic_id),
 FOREIGN KEY(topic_by) REFERENCES users(user_id)
 );
