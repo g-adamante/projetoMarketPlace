@@ -10,7 +10,7 @@ user_email  VARCHAR(255) NOT NULL,
 user_creation_date   TIMESTAMP NOT NULL,
 user_type  number(8) NOT NULL,
 CONSTRAINT user_id_pk PRIMARY KEY (user_id),
-CONSTRAINT user_email_unique UNIQUE (user_email)
+CONSTRAINT user_email_unique UNIQUE (user_email),
 CONSTRAINT user_name_unique UNIQUE (user_name)
 );
 
